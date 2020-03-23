@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { message } from 'antd';
+import { message, Button } from 'antd';
 
 import FunctionBar from './FunctionBar.jsx';
 import { get } from './utils';
@@ -8,13 +8,8 @@ const { BACKEND_PREFIX } = config;
 
 
 /**
- * @param {boolean} managing
- * @param {function(boolean)} onManagingChange
  */
-export default function Home({
-  managing,
-  onManagingChange,
-}) {
+export default function Home() {
   const [ articles, setArticles ] = useState([]);
   const [ pagination, setPagination ] = useState({
     current: 1,
@@ -22,6 +17,7 @@ export default function Home({
     total: null,
   });
   const [ searchTitle, setSearchTitle ] = useState('');
+  const [ managing, setManaging ] = useState(false);
 
   const fetchData = async (
     current,
@@ -80,11 +76,19 @@ export default function Home({
         managing={managing}
         onSearch={handleSearch}
         onSearchReset={handleSearchReset}
-        onManagingChange={onManagingChange}
+        onManagingChange={setManaging}
       />
       <ul>
         {articles.map((item) => (
-          <li>{item.title}</li>
+          <li>{item.title}
+          {managing
+            ? (<>
+                <Button>查看</Button>
+                <Button>更改</Button>
+                <Button>删除</Button>
+              </>)
+            : null
+          }</li>
         ))}
       </ul>
     </div>
