@@ -26,7 +26,7 @@ export default function Home() {
       page: current,
       title: searchTitle,
     }
-    const resp = await get(`${BACKEND_PREFIX}/api/articles/titles`, params);
+    const resp = await get(`${BACKEND_PREFIX}/api/articles/titles/`, params);
     if (resp.status !== 200) {
       console.error('Error: %o', { resp });
       throw new Error('resp status !== 200')
