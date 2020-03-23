@@ -3,15 +3,14 @@ import { Input, Button } from 'antd';
 
 
 /**
- * props:
- *   onSearch [callback]
+ * @param {function(string)} onSearch
+ * @param {function()} onReset
  */
 export default function SearchBar({
-  initValue,
   onSearch,
   onReset,
 }) {
-  const [ value, setValue ] = useState(initValue);
+  const [ value, setValue ] = useState('');
 
   const handleReset = () => {
     setValue('');

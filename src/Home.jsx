@@ -7,8 +7,14 @@ import config from './config';
 const { BACKEND_PREFIX } = config;
 
 
-
-export default function Home() {
+/**
+ * @param {boolean} managing
+ * @param {function(boolean)} onManagingChange
+ */
+export default function Home({
+  managing,
+  onManagingChange,
+}) {
   const [ articles, setArticles ] = useState([]);
   const [ pagination, setPagination ] = useState({
     current: 1,
@@ -57,9 +63,25 @@ export default function Home() {
     refreshData();
   }, []);
 
+  const handleSearch = (title) => {
+    console.log('handleSearch: %o', {title});
+    setSearchTitle(title);
+    // TODO: refresh
+  }
+
+  const handleSearchReset = () => {
+    setSearchTitle('');
+    // TODO: refresh
+  }
+
   return (
     <div>
-      <FunctionBar />
+      <FunctionBar
+        managing={managing}
+        onSearch={handleSearch}
+        onSearchReset={handleSearchReset}
+        onManagingChange={onManagingChange}
+      />
       <ul>
         {articles.map((item) => (
           <li>{item.title}</li>

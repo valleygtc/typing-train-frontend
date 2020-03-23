@@ -1,13 +1,20 @@
 import React from 'react';
 import { Button } from 'antd';
-import { Link } from 'react-router-dom';
 
 import SearchBar from './SearchBar.jsx';
 
 
+/**
+ * @param {boolean} managing
+ * @param {function(string)} onSearch
+ * @param {function()} onSearchReset
+ * @param {function(boolean)} onManagingChange
+ */
 export default function FunctionBar({
+  managing,
   onSearch,
   onSearchReset,
+  onManagingChange,
 }) {
   return (
     <div style={{
@@ -17,11 +24,15 @@ export default function FunctionBar({
       <div style={{
         width: '50%',
       }}>
-        <SearchBar />
+        <SearchBar
+          onSearch={onSearch}
+          onReset={onSearchReset}
+        />
       </div>
-      <Button type="primary" onClick={() => {console.log('click manage button')}}>
-        <Link to="/manage">管理</Link>
-      </Button>
+      {managing
+        ? <Button type="primary" onClick={() => {console.log('click add button')}}>添加</Button>
+        : <Button type="primary" onClick={() => onManagingChange(true)}>管理</Button>
+      }
     </div>
   )
 }
