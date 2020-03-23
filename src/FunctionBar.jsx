@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 import SearchBar from './SearchBar.jsx';
 
@@ -18,7 +19,9 @@ export default function FunctionBar({
       }}>
         <SearchBar />
       </div>
-      <Button type="primary" onClick={() => {console.log('click manage button')}}>管理</Button>
+      <Button type="primary" onClick={() => {console.log('click manage button')}}>
+        <Link to="/manage">管理</Link>
+      </Button>
     </div>
   )
 }

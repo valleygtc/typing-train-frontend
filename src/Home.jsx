@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, message } from 'antd';
+import { message } from 'antd';
 
 import FunctionBar from './FunctionBar.jsx';
 import { get } from './utils';
 import config from './config';
 const { BACKEND_PREFIX } = config;
 
-const { Header, Content, Footer } = Layout;
 
 
 export default function Home() {
@@ -59,35 +58,13 @@ export default function Home() {
   }, []);
 
   return (
-    <Layout style={{
-      minHeight: '100vh',
-    }}>
-      <Header>
-        <p style={{
-          color: 'white',
-        }}
-        >
-          typing-train
-        </p>
-      </Header>
-      <Content style={{
-        flexGrow: '1',
-        width: '1000px',
-        margin: '0 auto',
-        backgroundColor: '#ffffff',
-      }}>
-        <FunctionBar />
-        <ul>
-          {articles.map((item) => (
-            <li>{item.title}</li>
-          ))}
-        </ul>
-      </Content>
-      <Footer style={{
-        textAlign: 'center',
-      }}>
-        Footer
-      </Footer>
-    </Layout>
+    <div>
+      <FunctionBar />
+      <ul>
+        {articles.map((item) => (
+          <li>{item.title}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
