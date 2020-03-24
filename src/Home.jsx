@@ -59,15 +59,41 @@ export default function Home() {
     refreshData();
   }, []);
 
-  const handleSearch = (title) => {
+  const handleSearch = async (title) => {
     console.log('handleSearch: %o', {title});
     setSearchTitle(title);
-    // TODO: refresh
+
+    let respJSON;
+    try {
+      respJSON = await fetchData(1, title);
+    } catch (e) {
+      message.error('网络异常，刷新失败');
+      return
+    }
+    setArticles(respJSON.data);
+    setPagination({
+      ...pagination,
+      current: 1,
+    });
   }
 
-  const handleSearchReset = () => {
-    setSearchTitle('');
-    // TODO: refresh
+  const handleSearchReset = async () => {
+    console.log('handleSearchReset.');
+    const title = ''
+    setSearchTitle(title);
+  
+    let respJSON;
+    try {
+      respJSON = await fetchData(1, title);
+    } catch (e) {
+      message.error('网络异常，刷新失败');
+      return
+    }
+    setArticles(respJSON.data);
+    setPagination({
+      ...pagination,
+      current: 1,
+    });
   }
 
   return (
