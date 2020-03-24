@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { message, Button } from 'antd';
 
 import FunctionBar from './FunctionBar.jsx';
@@ -9,7 +10,9 @@ const { BACKEND_PREFIX } = config;
 
 /**
  */
-export default function Home() {
+export default function Home({
+  managing=false,
+}) {
   const [ articles, setArticles ] = useState([]);
   const [ pagination, setPagination ] = useState({
     current: 1,
@@ -17,7 +20,15 @@ export default function Home() {
     total: null,
   });
   const [ searchTitle, setSearchTitle ] = useState('');
-  const [ managing, setManaging ] = useState(false);
+  const history = useHistory();
+
+  const handleManagingChange = (managing) => {
+    if (managing) {
+      history.push('/manage');
+    } else {
+      history.push('/');
+    }
+  }
 
   const fetchData = async (
     current,
@@ -95,6 +106,10 @@ export default function Home() {
       current: 1,
     });
   }
+  // add
+  // check
+  // delete
+  // update
 
   return (
     <div>
@@ -102,7 +117,7 @@ export default function Home() {
         managing={managing}
         onSearch={handleSearch}
         onSearchReset={handleSearchReset}
-        onManagingChange={setManaging}
+        onManagingChange={handleManagingChange}
       />
       <ul>
         {articles.map((item) => (
