@@ -4,11 +4,9 @@ const { BACKEND_PREFIX } = config;
 
 /**get with cookie
  * 
- * Params:
- *   url [String]
- *   params [Object]
- * Return:
- *   [Promise]: return [Response]
+ * @param {string} url
+ * @param {object} params
+ * @returns {Promise}
  */
 function get(url, params={}) {
   const urlO = new URL(url);
@@ -26,11 +24,9 @@ function get(url, params={}) {
 
 /**JSON post with cookie
  * 
- * Params:
- *   url [String]
- *   body [Object]:
- * Return:
- *   [Promise]: return [Response]
+ * @param {string} url
+ * @param {object} body
+ * @returns {Promise}
  */
 function post(url, body={}) {
   console.log('post: %o', { url, body });
@@ -47,7 +43,6 @@ function post(url, body={}) {
 
 
 /**
- * 
  * @param {number} current 
  * @param {string} searchTitle 
  * @returns {object} respJSON (.pagination, .data)
