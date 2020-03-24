@@ -1,36 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { Form, Button, Input } from 'antd';
-import { message } from 'antd';
-
-import { post } from './utils';
-import config from './config';
-const { BACKEND_PREFIX } = config;
 
 const { TextArea } = Input;
 
 
-export default function AddForm() {
-  const history = useHistory();
-
-  const handleFinish = async (values) => {
-    const title = values['title'];
-    const body = {
-      title,
-      content: values['content'],
-    }
-    const resp = await post(`${BACKEND_PREFIX}/api/article/add`, body);
-    if (resp.status !== 200) {
-      message.error('网络异常，添加文章失败');
-      console.error('Error: %o', { resp });
-      return ;
-    }
-
-    message.success(`成功添加文章“${title}”`);
-    console.log('Success: %o', { resp });
-    history.goBack();
-  };
-
+export default function AddForm({
+  onFinish,
+}) {
   const handleFinishFailed = (errorInfo) => {
     console.error(errorInfo);
   };
@@ -47,7 +23,7 @@ export default function AddForm() {
     <Form
       name="AddForm"
       {...layout}
-      onFinish={handleFinish}
+      onFinish={onFinish}
       onFinishFailed={handleFinishFailed}
     >
       <Form.Item

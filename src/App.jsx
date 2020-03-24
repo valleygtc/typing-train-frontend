@@ -8,7 +8,7 @@ import {
 import { Layout } from 'antd';
 
 import Home from './Home.jsx';
-import AddForm from './AddForm.jsx';
+import AddPage from './AddPage.jsx';
 import UpdatePage from './UpdatePage.jsx';
 
 const { Header, Content, Footer } = Layout;
@@ -30,9 +30,7 @@ export default function App() {
           backgroundColor: '#ffffff',
         }}>
           <Switch>
-            <Route path="/add">
-              <AddForm />
-            </Route>
+            <Route path="/add" component={AddPage} />
             <Route path="/update" component={UpdatePage} />
             <Route path="/manage">
               <Home managing />
