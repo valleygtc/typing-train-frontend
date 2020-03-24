@@ -106,10 +106,13 @@ export default function Home({
       current: 1,
     });
   }
-  // add
   // check
   // delete
   // update
+
+  const handleUpdateClick = (id) => {
+    history.push(`/update?id=${id}`);
+  }
 
   return (
     <div>
@@ -121,11 +124,11 @@ export default function Home({
       />
       <ul>
         {articles.map((item) => (
-          <li>{item.title}
+          <li key={item.id}>{item.title}
           {managing
             ? (<>
                 <Button>查看</Button>
-                <Button>更改</Button>
+                <Button onClick={() => handleUpdateClick(item.id)}>更改</Button>
                 <Button>删除</Button>
               </>)
             : null

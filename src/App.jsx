@@ -9,6 +9,7 @@ import { Layout } from 'antd';
 
 import Home from './Home.jsx';
 import AddForm from './AddForm.jsx';
+import UpdatePage from './UpdatePage.jsx';
 
 const { Header, Content, Footer } = Layout;
 
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="/add">
               <AddForm />
             </Route>
+            <Route path="/update" component={UpdatePage} />
             <Route path="/manage">
               <Home managing />
             </Route>

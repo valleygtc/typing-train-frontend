@@ -1,3 +1,7 @@
+import config from './config';
+const { BACKEND_PREFIX } = config;
+
+
 /**get with cookie
  * 
  * Params:
@@ -42,7 +46,26 @@ function post(url, body={}) {
 }
 
 
+/**
+ * @param {number} id 
+ * @return {object} article
+ */
+const fetchArticle = async (
+  id,
+) => {
+  const resp = await get(`${BACKEND_PREFIX}/api/articles/${id}`);
+  if (resp.status !== 200) {
+    console.error('Error: %o', { resp });
+    throw new Error('resp status !== 200')
+  }
+
+  const respJSON = await resp.json();
+  return respJSON.data;
+}
+
+
 export {
   get,
   post,
+  fetchArticle,
 };
