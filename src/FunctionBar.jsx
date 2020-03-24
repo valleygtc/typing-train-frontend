@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 
 import SearchBar from './SearchBar.jsx';
@@ -16,6 +17,12 @@ export default function FunctionBar({
   onSearchReset,
   onManagingChange,
 }) {
+  const history = useHistory();
+
+  const handleAddClick = () => {
+    history.push('/add');
+  }
+
   return (
     <div style={{
       display: 'flex',
@@ -30,7 +37,7 @@ export default function FunctionBar({
         />
       </div>
       {managing
-        ? <Button type="primary" onClick={() => {console.log('click add button')}}>添加</Button>
+        ? <Button type="primary" onClick={handleAddClick}>添加</Button>
         : <Button type="primary" onClick={() => onManagingChange(true)}>管理</Button>
       }
     </div>

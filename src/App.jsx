@@ -8,6 +8,7 @@ import {
 import { Layout } from 'antd';
 
 import Home from './Home.jsx';
+import AddForm from './AddForm.jsx';
 
 const { Header, Content, Footer } = Layout;
 
@@ -29,7 +30,7 @@ export default function App() {
         }}>
           <Switch>
             <Route path="/add">
-              <div>TODO</div>
+              <AddForm />
             </Route>
             <Route path="/manage">
               <Home managing />
