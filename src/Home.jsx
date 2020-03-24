@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { message, Button } from 'antd';
+import { message, Button, Modal } from 'antd';
 
 import FunctionBar from './FunctionBar.jsx';
-import { get } from './utils';
+import { get, fetchArticle } from './utils';
 import config from './config';
 const { BACKEND_PREFIX } = config;
 
@@ -106,9 +106,28 @@ export default function Home({
       current: 1,
     });
   }
-  // check
   // delete
-  // update
+
+  const handleCheckClick = async (id) => {
+    let article;
+    try {
+      article = await fetchArticle(id);
+    } catch (e) {
+      message.error('网络异常，获取文章失败');
+      return
+    }
+    Modal.info({
+      icon: null,
+      title: `题目：${article.title}`,
+      content: (
+        <pre>
+          {article.content}
+        </pre>
+      ),
+      width: '800px',
+      onOk() {},
+    });
+  }
 
   const handleUpdateClick = (id) => {
     history.push(`/update?id=${id}`);
@@ -127,7 +146,7 @@ export default function Home({
           <li key={item.id}>{item.title}
           {managing
             ? (<>
-                <Button>查看</Button>
+                <Button onClick={() => handleCheckClick(item.id)}>查看</Button>
                 <Button onClick={() => handleUpdateClick(item.id)}>更改</Button>
                 <Button>删除</Button>
               </>)
