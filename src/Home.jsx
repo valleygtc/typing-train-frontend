@@ -3,13 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { message, Button, Modal } from 'antd';
 
 import FunctionBar from './FunctionBar.jsx';
-import { get, fetchArticle } from './utils';
-import config from './config';
-const { BACKEND_PREFIX } = config;
+import { fetchArticleList, fetchArticle } from './utils';
 
 
-/**
- */
 export default function Home({
   managing=false,
 }) {
@@ -30,30 +26,11 @@ export default function Home({
     }
   }
 
-  const fetchData = async (
-    current,
-    searchTitle,
-  ) => {
-    const params = {
-      page: current,
-      title: searchTitle,
-    }
-    const resp = await get(`${BACKEND_PREFIX}/api/articles/titles/`, params);
-    if (resp.status !== 200) {
-      console.error('Error: %o', { resp });
-      throw new Error('resp status !== 200')
-    }
-
-    const respJSON = await resp.json();
-    console.log('App fetchData: receive resp: %o', { respJSON });
-    return respJSON;
-  }
-
-  const refreshData = async () => {
+  const refreshArticles = async () => {
     console.log('App: refreshData');
     let respJSON;
     try {
-      respJSON = await fetchData(pagination.current, searchTitle);
+      respJSON = await fetchArticleList(pagination.current, searchTitle);
     } catch (e) {
       message.error('网络异常，刷新失败');
       return
@@ -67,7 +44,7 @@ export default function Home({
   }
 
   useEffect(() => {
-    refreshData();
+    refreshArticles();
   }, []);
 
   const handleSearch = async (title) => {
@@ -76,7 +53,7 @@ export default function Home({
 
     let respJSON;
     try {
-      respJSON = await fetchData(1, title);
+      respJSON = await fetchArticleList(1, title);
     } catch (e) {
       message.error('网络异常，刷新失败');
       return
@@ -95,7 +72,7 @@ export default function Home({
   
     let respJSON;
     try {
-      respJSON = await fetchData(1, title);
+      respJSON = await fetchArticleList(1, title);
     } catch (e) {
       message.error('网络异常，刷新失败');
       return
@@ -106,7 +83,6 @@ export default function Home({
       current: 1,
     });
   }
-  // delete
 
   const handleCheckClick = async (id) => {
     let article;

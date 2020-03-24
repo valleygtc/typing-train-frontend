@@ -47,6 +47,32 @@ function post(url, body={}) {
 
 
 /**
+ * 
+ * @param {number} current 
+ * @param {string} searchTitle 
+ * @returns {object} respJSON (.pagination, .data)
+ */
+const fetchArticleList = async (
+  current,
+  searchTitle,
+) => {
+  const params = {
+    page: current,
+    title: searchTitle,
+  }
+  const resp = await get(`${BACKEND_PREFIX}/api/articles/titles/`, params);
+  if (resp.status !== 200) {
+    console.error('Error: %o', { resp });
+    throw new Error('resp status !== 200')
+  }
+
+  const respJSON = await resp.json();
+  console.log('App fetchData: receive resp: %o', { respJSON });
+  return respJSON;
+}
+
+
+/**
  * @param {number} id 
  * @return {object} article
  */
@@ -67,5 +93,6 @@ const fetchArticle = async (
 export {
   get,
   post,
+  fetchArticleList,
   fetchArticle,
 };
