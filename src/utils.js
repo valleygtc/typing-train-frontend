@@ -85,9 +85,28 @@ const fetchArticle = async (
 }
 
 
+/**
+ * @param {number} id 
+ * @returns {string} msg
+ */
+const reqDel = async (
+  id,
+) => {
+  const resp = await get(`${BACKEND_PREFIX}/api/article/delete`, { id });
+  if (resp.status !== 200) {
+    console.error('Error: %o', { resp });
+    throw new Error('resp status !== 200')
+  }
+
+  const respJSON = await resp.json();
+  return respJSON.msg;
+}
+
+
 export {
   get,
   post,
   fetchArticleList,
   fetchArticle,
+  reqDel,
 };

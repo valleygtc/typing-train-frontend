@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { message, Button, Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import FunctionBar from './FunctionBar.jsx';
-import { fetchArticleList, fetchArticle } from './utils';
+import {
+  fetchArticleList,
+  fetchArticle,
+  reqDel,
+} from './utils';
 
 
 export default function Home({
@@ -109,6 +114,28 @@ export default function Home({
     history.push(`/update?id=${id}`);
   }
 
+  const handleDelClick = (id, title) => {
+    Modal.confirm({
+      title: `确认删除文章“${title}”？`,
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: async () => {
+        let msg;
+        try {
+          msg = await reqDel(id);
+        } catch (e) {
+          message.error('网络异常，删除文章失败');
+          return
+        }
+        message.success(`成功删除文章“${title}”`);
+        console.log('Success: %o', { msg });
+        refreshArticles();
+      },
+    });
+  }
+
   return (
     <div>
       <FunctionBar
@@ -124,7 +151,7 @@ export default function Home({
             ? (<>
                 <Button onClick={() => handleCheckClick(item.id)}>查看</Button>
                 <Button onClick={() => handleUpdateClick(item.id)}>更改</Button>
-                <Button>删除</Button>
+                <Button onClick={() => handleDelClick(item.id, item.title)}>删除</Button>
               </>)
             : null
           }</li>
