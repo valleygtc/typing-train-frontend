@@ -149,9 +149,9 @@ export default function Home({
           <li key={item.id}>{item.title}
           {managing
             ? (<>
-                <Button onClick={() => handleCheckClick(item.id)}>查看</Button>
-                <Button onClick={() => handleUpdateClick(item.id)}>更改</Button>
-                <Button onClick={() => handleDelClick(item.id, item.title)}>删除</Button>
+                <Button size="small" onClick={() => handleCheckClick(item.id)}>查看</Button>
+                <Button size="small" onClick={() => handleUpdateClick(item.id)}>更改</Button>
+                <Button size="small" onClick={() => handleDelClick(item.id, item.title)}>删除</Button>
               </>)
             : null
           }</li>
