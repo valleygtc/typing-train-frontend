@@ -10,6 +10,7 @@ import { Layout } from 'antd';
 import Home from './Home.jsx';
 import AddPage from './AddPage.jsx';
 import UpdatePage from './UpdatePage.jsx';
+import TypingPage from './TypingPage.jsx';;
 
 const { Header, Content, Footer } = Layout;
 
@@ -30,6 +31,7 @@ export default function App() {
           backgroundColor: '#ffffff',
         }}>
           <Switch>
+            <Route path="/typing" component={TypingPage} />
             <Route path="/add" component={AddPage} />
             <Route path="/update" component={UpdatePage} />
             <Route path="/manage" render={(routeProps) => <Home managing {...routeProps} />} />

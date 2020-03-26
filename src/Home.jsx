@@ -92,6 +92,10 @@ export default function Home({
     });
   }
 
+  const handleEnterTyping = (id) => {
+    history.push(`/typing?id=${id}`);
+  }
+
   const handleCheckClick = async (id) => {
     let article;
     try {
@@ -149,7 +153,8 @@ export default function Home({
       />
       <ul>
         {articles.map((item) => (
-          <li key={item.id}>{item.title}
+          <li key={item.id}>
+            <Button type="link" onClick={() => handleEnterTyping(item.id)}>{item.title}</Button>
           {managing
             ? (<>
                 <Button size="small" onClick={() => handleCheckClick(item.id)}>查看</Button>

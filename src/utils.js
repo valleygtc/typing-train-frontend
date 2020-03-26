@@ -2,6 +2,38 @@ import config from './config';
 const { BACKEND_PREFIX } = config;
 
 
+/**
+ * same as python iter function
+ * 
+ * @param {Iterable} object
+ * @returns {Iterator}
+ */
+function iter(object) {
+  return object[Symbol.iterator]();
+}
+
+
+/**
+ * same as python zip function
+ * 
+ * zip('ABCD', 'xy') --> Ax By
+ * 
+ * @param  {...Iterable} iterables 
+ * @returns {Iterator}
+ */
+function *zip (...iterables){
+  const iterators = iterables.map(iter);
+  while (true) {
+    const results = iterators.map(iter => iter.next());
+    if (results.some(res => res.done)) {
+      return
+    } else {
+      yield results.map(res => res.value);
+    }
+  }
+}
+
+
 /**get with cookie
  * 
  * @param {string} url
@@ -104,6 +136,8 @@ const reqDel = async (
 
 
 export {
+  iter,
+  zip,
   get,
   post,
   fetchArticleList,
