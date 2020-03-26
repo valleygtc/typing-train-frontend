@@ -32,12 +32,8 @@ export default function App() {
           <Switch>
             <Route path="/add" component={AddPage} />
             <Route path="/update" component={UpdatePage} />
-            <Route path="/manage">
-              <Home managing />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
+            <Route path="/manage" render={(routeProps) => <Home managing {...routeProps} />} />
+            <Route path="/" component={Home} />
           </Switch>
         </Content>
         <Footer style={{

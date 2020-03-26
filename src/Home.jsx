@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { message, Button, Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
@@ -11,8 +10,13 @@ import {
 } from './utils';
 
 
+/**
+ * @param {boolean} managing
+ * @param {object} history - react-router routePorps
+ */
 export default function Home({
   managing=false,
+  history,
 }) {
   const [ articles, setArticles ] = useState([]);
   const [ pagination, setPagination ] = useState({
@@ -21,7 +25,6 @@ export default function Home({
     total: null,
   });
   const [ searchTitle, setSearchTitle ] = useState('');
-  const history = useHistory();
 
   const handleManagingChange = (managing) => {
     if (managing) {
