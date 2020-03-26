@@ -86,7 +86,12 @@ export default function TypingPage({
     >
       <pre>
         {inputItems}
-        {article.content.slice(input.length)}
+        <span style={{
+          borderBottom: '3px solid #0a6bf9',
+        }}>
+          {article.content[input.length]}
+        </span>
+        {article.content.slice(input.length + 1)}
       </pre>
     </div>
   )
